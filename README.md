@@ -1,7 +1,7 @@
 # city_explorer_api
 
 **Author**: Dar-Ci Calhoun
-**Version**: 1.2.0
+**Version**: 2.0.0
 
 ## Overview
 
@@ -16,7 +16,7 @@
 In order to run this app on your machine, complete the following steps:
 
 1. Clone this GitHub repository to your local machine and change into that directory (need to have git and Node installed before beginning this step)
-2. Run a `npm init` command in your terminal, followed by `npm install -S cors express nodemon` to add the environments you will need
+2. Run a `npm init` command in your terminal, followed by `npm install -S cors express dotenv superagent` to add the environments you will need
 3. Run a `touch .env` command to add a file where secure data will be stored
   - add your PORT key in your .env file with the following format: `PORT=<PORTNUMBER>`. This should be a 4-digit number
 
