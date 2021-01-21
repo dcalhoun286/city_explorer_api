@@ -28,7 +28,7 @@ app.get('/location', (req, res) => {
   const cityUserEntered = req.query.city;
 
   if (cityUserEntered === '') {
-    res.send('Error (invalid entry)! Please enter a city.');
+    res.status(500).send('Error (invalid entry)! Please enter a city.');
   }
 
   // superagent function will use the template literal ref GEOCODE_API_KEY from .env file; create a variable GEOCODE_API_KEY with key from .env file assigned to it. something about process.env
