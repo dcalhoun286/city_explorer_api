@@ -36,6 +36,14 @@ In order to run this app on your machine, complete the following steps:
 01-20-2021 5:45pm - Application now has a functional express server
 01-20-2021 6:00pm - Application is now deployed to Heroku
 
+## Time Estimates
+
+**Number and name of feature**: Configuration
+**Estimate of time needed to complete**: 5 hours
+**Start time**: 01-18-2021 1:30pm
+**Finish time**: 01-20-2021 5:45pm
+**Actual time needed to complete**: approx. 12 hours total
+
 ## Credits and Collaborations
 
 - [Carly Dekock](https://github.com/carlydekock)
