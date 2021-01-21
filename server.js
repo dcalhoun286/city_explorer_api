@@ -17,6 +17,8 @@ const PORT = process.env.PORT || 3111; // all caps because it is a variable futu
 
 // ======= Routes ==========
 
+// I need to add .catch functions to handle server errors at some point
+
 app.get('/', (req, response) => {
   response.send('you made it home, WOOHOO yay');
 });
@@ -27,10 +29,25 @@ app.get('/location', (req, res) => {
 
   if (cityUserEntered === '') {
     res.send('Error (invalid entry)! Please enter a city.');
-    // return;
   }
 
-  // this is an array
+  // superagent function will use the template literal ref GEOCODE_API_KEY from .env file; create a variable GEOCODE_API_KEY with key from .env file assigned to it. something about process.env
+
+  // .then of superagent:
+  // use the data that comes back in result.body (body is s proerpty of superagent)
+  // will have same syntax as location.json
+
+  /*
+
+  what the front end receives needs to be an obj that looks like this
+
+  {
+    "<key>":"<value>"
+  }
+
+  */
+
+  // remove line 50; replace with superagent
   const locationData = require('./data/location.json');
   const arr1 = [];
   locationData.forEach(city => {
@@ -42,8 +59,8 @@ app.get('/location', (req, res) => {
     );
     arr1.push(newLocationObject);
   });
-  console.log(arr1);
-  res.send(arr1);
+  console.log(arr1[0]);
+  res.send(arr1[0]);
 });
 // const cityData = new Location(
 //   cityUserEntered,
@@ -52,8 +69,8 @@ app.get('/location', (req, res) => {
 //   dataFromLocationJSON[0].lon
 // );
 
-
-
+//refactor code to reference WEATHER_API_KEY from .env file like the note I wrote on line 34
+//array.prototype.map on weatherData arr
 app.get('/weather', (req, res) => {
   const weatherData = require('./data/weather.json');
   const arr2 = [];
@@ -61,6 +78,7 @@ app.get('/weather', (req, res) => {
     const newWeatherObj = new Weather(weatherObject.weather.description, weatherObject.valid_date);
     arr2.push(newWeatherObj);
   });
+  console.log(arr2);
   res.send(arr2);
 });
 
@@ -83,9 +101,9 @@ app.get('/weather', (req, res) => {
 
 // ========= Helper Functions =========
 
-function Weather(forecast, date) {
+function Weather(forecast, time) {
   this.forecast = forecast,
-  this.date = date;
+  this.time = time;
 }
 
 function Location(search_query, formatted_query, latitude, longitude) {
