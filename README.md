@@ -1,7 +1,7 @@
 # city_explorer_api
 
 **Author**: Dar-Ci Calhoun
-**Version**: 2.0.1
+**Version**: 3.0.0
 
 ## Overview
 
