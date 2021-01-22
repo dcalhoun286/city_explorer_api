@@ -38,11 +38,33 @@ In order to run this app on your machine, complete the following steps:
 
 ## Time Estimates
 
-**Number and name of feature**: Configuration
-**Estimate of time needed to complete**: 5 hours
-**Start time**: 01-18-2021 1:30pm
-**Finish time**: 01-20-2021 5:45pm
-**Actual time needed to complete**: approx. 12 hours total
+**Number and name of feature**: 1. Configuration
+
+- **Estimate of time needed to complete**: 5 hours
+- **Start time**: 01-18-2021 1:30pm
+- **Finish time**: 01-20-2021 5:45pm
+- **Actual time needed to complete**: approx. 12 hours total
+
+**Number and name of feature**: 2. Data formatting
+
+- **Estimate of time needed to complete**: 1 hour
+- **Start time**: 01-20-2021 9:30pm
+- **Finish time**: 01-21-2021 7:30pm
+- **Actual time needed to complete**: approx. 90 minutes total
+
+**Number and name of feature**: 3. Locations
+
+- **Estimate of time needed to complete**: 15 minutes
+- **Start time**: 01-21-2021 7:00pm
+- **Finish time**: 01-21-2021 7:10pm
+- **Actual time needed to complete**: 10 minutes
+
+**Number and name of feature**: 4. Weather
+
+- **Estimate of time needed to complete**: 10 minutes
+- **Start time**: 01-21-2021 7:10pm
+- **Finish time**: 01-21-2021 7:30pm
+- **Actual time needed to complete**: 20 minutes
 
 ## Credits and Collaborations
 
