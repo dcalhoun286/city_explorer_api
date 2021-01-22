@@ -46,9 +46,13 @@ In order to run this app on your machine, complete the following steps:
 
 ## Credits and Collaborations
 
+**The people listed below deserve a shoutout for the help they gave me as I completed this project!**
+
 - [Carly Dekock](https://github.com/carlydekock)
 - [Stephen Webber](https://github.com/offgridauthor)
 - [Sara Russert](https://github.com/sarabeth-russert)
 - [Nicholas Carignan](https://github.com/ncarignan)
+- [Jason Dormier](https://github.com/JasonDormier)
+- [Nicco Ryan](https://github.com/Niccoryan0)
 - [GitHub Class Repository for This Assignment](https://github.com/codefellows/seattle-301d70/tree/main/class-06/demos/server2)
 - [MDN Web Docs: Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
