@@ -83,8 +83,6 @@ app.get('/location', (req, res) => {
 //   dataFromLocationJSON[0].lon
 // );
 
-//refactor code to reference WEATHER_API_KEY from .env file like the note I wrote on line 34
-//array.prototype.map on weatherData arr
 app.get('/weather', getWeather);
 
 function getWeather(req, res) {
@@ -100,40 +98,13 @@ function getWeather(req, res) {
   const url = `http://api.weatherbit.io/v2.0/forecast/daily/current?key=${key}&days=8&lon=${longitude}&lat=${latitude}`;
   superagent.get(url).then(result => {
     console.log(result.body);
+    //Documentation - Array.prototype.map: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
     const arr = result.body.data.map(weatherObject => new Weather(weatherObject));
     res.send(arr);
   }).catch(error => {
     console.error('an error occured:', error);
   });
 }
-
-// app.get('/weather', (req, res) => {
-//   const weatherData = require('./data/weather.json');
-//   const arr2 = [];
-//   weatherData.data.forEach(weatherObject => {
-//     const newWeatherObj = new Weather(weatherObject);
-//     arr2.push(newWeatherObj);
-//   });
-//   console.log(arr2);
-//   res.send(arr2);
-// });
-
-// app.get('/weather', (req, res) => {
-//   console.log(req.query.name);
-//   const dataFromWeatherJSON = require('./data/weather.json');
-//   const weatherArray = [];
-//   // const weatherArray = new Weather
-//   dataFromWeatherJSON.data.forEach(object => {
-//     weatherArray.push(
-//       new Weather(
-//         object.weather.description,
-//         object.valid_date
-//       )
-//     );
-//   });
-//   console.log(weatherArray);
-//   res.send(weatherArray);
-// });
 
 // ========= Helper Functions =========
 
