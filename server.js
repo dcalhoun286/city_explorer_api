@@ -5,7 +5,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config(); // runs once and loads all the environment variables IF they were declared in a file instead of the terminal
-
+const superagent = require('superagent');
 // ===== setup the application (server) =====
 
 const app = express(); // creates a server from the express library
@@ -23,6 +23,10 @@ app.get('/', (req, response) => {
   response.send('you made it home, WOOHOO yay');
 });
 
+/*
+GET https://us1.locationiq.com/v1/search.php?key=YOUR_ACCESS_TOKEN&q=SEARCH_STRING&format=json
+*/
+
 app.get('/location', (req, res) => {
   console.log(req.query.name);
   const cityUserEntered = req.query.city;
@@ -30,14 +34,20 @@ app.get('/location', (req, res) => {
   if (cityUserEntered === '') {
     res.status(500).send('Error (invalid entry)! Please enter a city.');
   }
+  const url = `https://us1.locationiq.com/v1/search.php?key=${process.env.GEOCODE_API_KEY}&q=${cityUserEntered}&format=json`;
+  superagent.get(url).then(result => {
+    console.log(result.body[0]);
+    const location = new Location(cityUserEntered, result.body[0].display_name, result.body[0].lat, result.body[0].lon);
+    res.status(200).send(location);
+  });
+});
+// superagent function will use the template literal ref GEOCODE_API_KEY from .env file; create a variable GEOCODE_API_KEY with key from .env file assigned to it. something about process.env
 
-  // superagent function will use the template literal ref GEOCODE_API_KEY from .env file; create a variable GEOCODE_API_KEY with key from .env file assigned to it. something about process.env
+// .then of superagent:
+// use the data that comes back in result.body (body is s proerpty of superagent)
+// will have same syntax as location.json
 
-  // .then of superagent:
-  // use the data that comes back in result.body (body is s proerpty of superagent)
-  // will have same syntax as location.json
-
-  /*
+/*
 
   what the front end receives needs to be an obj that looks like this
 
@@ -47,21 +57,25 @@ app.get('/location', (req, res) => {
 
   */
 
-  // remove line 50; replace with superagent
-  const locationData = require('./data/location.json');
-  const arr1 = [];
-  locationData.forEach(city => {
-    const newLocationObject = new Location(
-      cityUserEntered,
-      locationData[0].display_name,
-      locationData[0].lat,
-      locationData[0].lon
-    );
-    arr1.push(newLocationObject);
-  });
-  console.log(arr1[0]);
-  res.send(arr1[0]);
-});
+// remove line 50; replace with superagent
+
+//   const arr1 = [];
+//   locationData.forEach(city => {
+//     const newLocationObject = new Location(
+//       cityUserEntered,
+//       city.display_name,
+//       city.lat,
+//       city.lon
+//     );
+//     arr1.push(newLocationObject);
+//   });
+//   console.log(arr1[0]);
+//   res.send(arr1[0]);
+// });
+
+// .catch(error => {
+//   res.status(500).send('Oops! Something went wrong.');
+// });
 // const cityData = new Location(
 //   cityUserEntered,
 //   dataFromLocationJSON[0].display_name,
@@ -71,16 +85,38 @@ app.get('/location', (req, res) => {
 
 //refactor code to reference WEATHER_API_KEY from .env file like the note I wrote on line 34
 //array.prototype.map on weatherData arr
-app.get('/weather', (req, res) => {
-  const weatherData = require('./data/weather.json');
-  const arr2 = [];
-  weatherData.data.forEach(weatherObject => {
-    const newWeatherObj = new Weather(weatherObject.weather.description, weatherObject.valid_date);
-    arr2.push(newWeatherObj);
+app.get('/weather', getWeather);
+
+function getWeather(req, res) {
+  // url = 'http://api.weatherbit.io/v2.0/forecast/daily
+  // query string: lat, lon, days, key
+  console.log('weather query from front end', req.query);
+  console.log('weather path', req.url);
+
+  const key = process.env.WEATHER_API_KEY;
+  const longitude = req.query.longitude;
+  const latitude = req.query.latitude;
+
+  const url = `http://api.weatherbit.io/v2.0/forecast/daily/current?key=${key}&days=8&lon=${longitude}&lat=${latitude}`;
+  superagent.get(url).then(result => {
+    console.log(result.body);
+    const arr = result.body.data.map(weatherObject => new Weather(weatherObject));
+    res.send(arr);
+  }).catch(error => {
+    console.error('an error occured:', error);
   });
-  console.log(arr2);
-  res.send(arr2);
-});
+}
+
+// app.get('/weather', (req, res) => {
+//   const weatherData = require('./data/weather.json');
+//   const arr2 = [];
+//   weatherData.data.forEach(weatherObject => {
+//     const newWeatherObj = new Weather(weatherObject);
+//     arr2.push(newWeatherObj);
+//   });
+//   console.log(arr2);
+//   res.send(arr2);
+// });
 
 // app.get('/weather', (req, res) => {
 //   console.log(req.query.name);
@@ -101,9 +137,11 @@ app.get('/weather', (req, res) => {
 
 // ========= Helper Functions =========
 
-function Weather(forecast, time) {
-  this.forecast = forecast,
-  this.time = time;
+function Weather(weatherObject) {
+  this.forecast = weatherObject.weather.description,
+  // formatting the date as directed by trello instructions
+  // documentation: Nicco Ryan (TA) helped me with writing the code this way
+  this.time = new Date(weatherObject.valid_date).toDateString();
 }
 
 function Location(search_query, formatted_query, latitude, longitude) {
