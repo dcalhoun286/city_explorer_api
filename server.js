@@ -28,7 +28,7 @@ GET https://us1.locationiq.com/v1/search.php?key=YOUR_ACCESS_TOKEN&q=SEARCH_STRI
 */
 
 app.get('/location', (req, res) => {
-  console.log(req.query.name);
+  // console.log(req.query.name);
   const cityUserEntered = req.query.city;
 
   if (cityUserEntered === '') {
@@ -36,7 +36,7 @@ app.get('/location', (req, res) => {
   }
   const url = `https://us1.locationiq.com/v1/search.php?key=${process.env.GEOCODE_API_KEY}&q=${cityUserEntered}&format=json`;
   superagent.get(url).then(result => {
-    console.log(result.body[0]);
+    // console.log(result.body[0]);
     const location = new Location(cityUserEntered, result.body[0].display_name, result.body[0].lat, result.body[0].lon);
     res.status(200).send(location);
   });
@@ -88,8 +88,8 @@ app.get('/weather', getWeather);
 function getWeather(req, res) {
   // url = 'http://api.weatherbit.io/v2.0/forecast/daily
   // query string: lat, lon, days, key
-  console.log('weather query from front end', req.query);
-  console.log('weather path', req.url);
+  // console.log('weather query from front end', req.query);
+  // console.log('weather path', req.url);
 
   const key = process.env.WEATHER_API_KEY;
   const longitude = req.query.longitude;
@@ -97,7 +97,7 @@ function getWeather(req, res) {
 
   const url = `http://api.weatherbit.io/v2.0/forecast/daily/current?key=${key}&days=8&lon=${longitude}&lat=${latitude}`;
   superagent.get(url).then(result => {
-    console.log(result.body);
+    // console.log(result.body);
     //Documentation - Array.prototype.map: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
     const arr = result.body.data.map(weatherObject => new Weather(weatherObject));
     res.send(arr);
@@ -106,6 +106,22 @@ function getWeather(req, res) {
   });
 }
 
+// National Parks
+app.get('/parks', getParks);
+
+function getParks(req, res) {
+  const location = req.query.search_query;
+  const parksKey = process.env.PARKS_API_KEY;
+  const parksUrl = `https://developer.nps.gov/api/v1/parks?q=${location}&api_key=${parksKey}&limit=10`;
+
+  superagent.get(parksUrl).then(parksResult => {
+    // console.log('parks result', parksResult.body);
+    const parkData = parksResult.body.data.map(parksObject => new Parks(parksObject));
+    res.send(parkData);
+  }).catch(error => {
+    console.error('an error occured:', error);
+  });
+}
 // ========= Helper Functions =========
 
 function Weather(weatherObject) {
@@ -120,6 +136,17 @@ function Location(search_query, formatted_query, latitude, longitude) {
   this.formatted_query = formatted_query;
   this.longitude = longitude;
   this.latitude = latitude;
+}
+
+function Parks(parksObject) {
+  this.park_url = parksObject.url;
+  this.name = parksObject.fullName;
+  this.address = `${parksObject.addresses[0].line1} ${parksObject.addresses[0].city} ${parksObject.addresses[0].stateCode}, ${parksObject.addresses[0].postalCode}`;
+  this.fee = parksObject.entranceFees[0].cost;
+  this.description = parksObject.description;
+
+  // console.log(`fees for ${parksObject.fullName}`, parksObject.entranceFees);
+  // console.log(`addresses for ${parksObject.fullName}`, parksObject.addresses);
 }
 
 // ========= Start the server ============
