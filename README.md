@@ -66,6 +66,15 @@ In order to run this app on your machine, complete the following steps:
 - **Finish time**: 01-21-2021 7:30pm
 - **Actual time needed to complete**: 20 minutes
 
+**Number and name of feature**: 4. Trails
+
+- **Estimate of time needed to complete**: 60 minutes
+- **Start time**: 01-24-2021 12:42pm
+  - stop 01-24-2021 2:17pm
+  - resume 01-24-2021 3:55pm
+- **Finish time**: 01-24-2021 4:30pm
+- **Actual time needed to complete**: 99 minutes
+
 ## Credits and Collaborations
 
 **The people listed below deserve a shoutout for the help they gave me as I completed this project!**
