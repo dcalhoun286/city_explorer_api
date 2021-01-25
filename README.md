@@ -35,6 +35,7 @@ In order to run this app on your machine, complete the following steps:
 
 01-20-2021 5:45pm - Application now has a functional express server
 01-20-2021 6:00pm - Application is now deployed to Heroku
+01-24-2021 4:43pm - Application now retrieves data using geocode, parks, and weather API keys
 
 ## Time Estimates
 
