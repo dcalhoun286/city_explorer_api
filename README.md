@@ -92,6 +92,13 @@ In order to run this app on your machine, complete the following steps:
 - **End time**: 01-30-2021 10:35pm
 - **Actual time needed to complete**: 20 minutes
 
+**Number and name of feature**: 8. Database-Deploy: deployment to Heroku
+
+- **Estimate of time needed to complete**: 20 minutes
+- **Start time**: 01-30-2021 11:55pm
+- **End time**:
+- **Actual time needed to complete**:
+
 ## Credits and Collaborations
 
 **The people listed below deserve a shoutout for the help they gave me as I completed this project!**
