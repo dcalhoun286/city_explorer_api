@@ -85,6 +85,13 @@ In order to run this app on your machine, complete the following steps:
 - **Finish time**: 01-30-2021 11:25pm
 - **Actual time needed to complete**: 115 minutes
 
+**Number and name of feature**: 7. Database-Server: check database for stored locations before performing a search query
+
+- **Estimate of time needed to complete**: 15 minutes
+- **Start time**: 01-30-2021 10:15pm
+- **End time**: 01-30-2021 10:35pm
+- **Actual time needed to complete**: 20 minutes
+
 ## Credits and Collaborations
 
 **The people listed below deserve a shoutout for the help they gave me as I completed this project!**
