@@ -1,7 +1,7 @@
 # city_explorer_api
 
 **Author**: Dar-Ci Calhoun
-**Version**: 3.1.1
+**Version**: 4.0.0
 
 ## Overview
 
@@ -37,6 +37,7 @@ In order to run this app on your machine, complete the following steps:
 01-20-2021 6:00pm - Application is now deployed to Heroku
 01-24-2021 4:43pm - Application now retrieves data using geocode, parks, and weather API keys
 01-30-2021 8:15pm - Application now has proper error handling
+01-30-2021 11:25pm - Database setup complete, server now begins after database connection is established
 
 ## Time Estimates
 
@@ -76,6 +77,13 @@ In order to run this app on your machine, complete the following steps:
   - resume 01-24-2021 3:55pm
 - **Finish time**: 01-24-2021 4:30pm
 - **Actual time needed to complete**: 99 minutes
+
+**Number and name of feature**: 6. Database Setup and Creation
+
+- **Estimate of time needed to complete**: 60 minutes
+- **Start time**: 01-30-2021 9:30pm
+- **Finish time**: 01-30-2021 11:25pm
+- **Actual time needed to complete**: 115 minutes
 
 ## Credits and Collaborations
 
