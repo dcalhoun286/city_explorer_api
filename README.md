@@ -15,10 +15,10 @@
 
 In order to run this app on your machine, complete the following steps:
 
-1. Clone this GitHub repository to your local machine and change into that directory (need to have git and Node installed before beginning this step)
+1. Clone this GitHub repository to your local machine and `cd` into that directory(need to have git and Node installed before beginning this step)
 2. Run a `npm init` command in your terminal, followed by `npm install -S cors express dotenv superagent` to add the environments you will need
 3. Run a `touch .env` command to add a file where secure data will be stored
-  - add your PORT key in your .env file with the following format: `PORT=<PORTNUMBER>`. This should be a 4-digit number
+  1. add your PORT key in your .env file with the following format: `PORT=<PORTNUMBER>`. This should be a 4-digit number
 
 ## Architecture
 
@@ -68,7 +68,7 @@ In order to run this app on your machine, complete the following steps:
 - **Finish time**: 01-21-2021 7:30pm
 - **Actual time needed to complete**: 20 minutes
 
-**Number and name of feature**: 4. Trails
+**Number and name of feature**: 5. Trails
 
 - **Estimate of time needed to complete**: 60 minutes
 - **Start time**: 01-24-2021 12:42pm
@@ -83,9 +83,9 @@ In order to run this app on your machine, complete the following steps:
 
 - [Carly Dekock](https://github.com/carlydekock)
 - [Stephen Webber](https://github.com/offgridauthor)
-- [Sara Russert](https://github.com/sarabeth-russert)
-- [Nicholas Carignan](https://github.com/ncarignan)
+- [Sara Russert](https://github.com/sarabeth-russert)(TA)
+- [Nicholas Carignan](https://github.com/ncarignan)(instructor)
 - [Jason Dormier](https://github.com/JasonDormier)
-- [Nicco Ryan](https://github.com/Niccoryan0)
+- [Nicco Ryan](https://github.com/Niccoryan0)(TA)
 - [GitHub Class Repository for This Assignment](https://github.com/codefellows/seattle-301d70/tree/main/class-06/demos/server2)
 - [MDN Web Docs: Array.prototype.forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
