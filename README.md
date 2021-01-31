@@ -96,6 +96,8 @@ In order to run this app on your machine, complete the following steps:
 
 - **Estimate of time needed to complete**: 20 minutes
 - **Start time**: 01-30-2021 11:55pm
+  - stop: 01-31-2021 12:21am
+  - resume: 01-31-2021
 - **End time**:
 - **Actual time needed to complete**:
 
