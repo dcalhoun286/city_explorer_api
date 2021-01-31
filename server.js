@@ -24,20 +24,16 @@ app.get('/', (req, response) => {
   response.status(200).send('you made it home, WOOHOO yay');
 });
 
-/*
-GET https://us1.locationiq.com/v1/search.php?key=YOUR_ACCESS_TOKEN&q=SEARCH_STRING&format=json
-*/
+app.get('/location', getLocation);
 
-app.get('/location', (req, res) => {
-  // console.log(req.query.name);
+function getLocation(req, res) {
   const cityUserEntered = req.query.city;
-
   if (cityUserEntered === '') {
     res.status(500).send('Error (invalid entry)! Please enter a city.');
   }
+
   const url = `https://us1.locationiq.com/v1/search.php?key=${process.env.GEOCODE_API_KEY}&q=${cityUserEntered}&format=json`;
   superagent.get(url).then(result => {
-    // console.log(result.body[0]);
     const location = new Location(cityUserEntered, result.body[0].display_name, result.body[0].lat, result.body[0].lon);
     res.status(200).send(location);
   })
@@ -45,7 +41,7 @@ app.get('/location', (req, res) => {
       res.status(500).send('failed to retrieve location.');
       console.log(error.message);
     });
-});
+}
 
 app.get('/weather', getWeather);
 
