@@ -1,7 +1,7 @@
 # city_explorer_api
 
 **Author**: Dar-Ci Calhoun
-**Version**: 3.1.0
+**Version**: 3.1.1
 
 ## Overview
 
@@ -36,6 +36,7 @@ In order to run this app on your machine, complete the following steps:
 01-20-2021 5:45pm - Application now has a functional express server
 01-20-2021 6:00pm - Application is now deployed to Heroku
 01-24-2021 4:43pm - Application now retrieves data using geocode, parks, and weather API keys
+01-30-2021 8:15pm - Application now has proper error handling
 
 ## Time Estimates
 

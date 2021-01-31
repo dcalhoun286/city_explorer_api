@@ -6,6 +6,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config(); // runs once and loads all the environment variables IF they were declared in a file instead of the terminal
 const superagent = require('superagent');
+const { response } = require('express');
 // ===== setup the application (server) =====
 
 const app = express(); // creates a server from the express library
@@ -20,7 +21,7 @@ const PORT = process.env.PORT || 3111; // all caps because it is a variable futu
 // I need to add .catch functions to handle server errors at some point
 
 app.get('/', (req, response) => {
-  response.send('you made it home, WOOHOO yay');
+  response.status(200).send('you made it home, WOOHOO yay');
 });
 
 /*
@@ -39,49 +40,12 @@ app.get('/location', (req, res) => {
     // console.log(result.body[0]);
     const location = new Location(cityUserEntered, result.body[0].display_name, result.body[0].lat, result.body[0].lon);
     res.status(200).send(location);
-  });
+  })
+    .catch(error => {
+      res.status(500).send('failed to retrieve location.');
+      console.log(error.message);
+    });
 });
-// superagent function will use the template literal ref GEOCODE_API_KEY from .env file; create a variable GEOCODE_API_KEY with key from .env file assigned to it. something about process.env
-
-// .then of superagent:
-// use the data that comes back in result.body (body is s proerpty of superagent)
-// will have same syntax as location.json
-
-/*
-
-  what the front end receives needs to be an obj that looks like this
-
-  {
-    "<key>":"<value>"
-  }
-
-  */
-
-// remove line 50; replace with superagent
-
-//   const arr1 = [];
-//   locationData.forEach(city => {
-//     const newLocationObject = new Location(
-//       cityUserEntered,
-//       city.display_name,
-//       city.lat,
-//       city.lon
-//     );
-//     arr1.push(newLocationObject);
-//   });
-//   console.log(arr1[0]);
-//   res.send(arr1[0]);
-// });
-
-// .catch(error => {
-//   res.status(500).send('Oops! Something went wrong.');
-// });
-// const cityData = new Location(
-//   cityUserEntered,
-//   dataFromLocationJSON[0].display_name,
-//   dataFromLocationJSON[0].lat,
-//   dataFromLocationJSON[0].lon
-// );
 
 app.get('/weather', getWeather);
 
@@ -100,8 +64,9 @@ function getWeather(req, res) {
     // console.log(result.body);
     //Documentation - Array.prototype.map: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
     const arr = result.body.data.map(weatherObject => new Weather(weatherObject));
-    res.send(arr);
+    res.status(200).send(arr);
   }).catch(error => {
+    res.status(500).send('failed to get weather data');
     console.error('an error occured:', error);
   });
 }
@@ -119,7 +84,8 @@ function getParks(req, res) {
     const parkData = parksResult.body.data.map(parksObject => new Parks(parksObject));
     res.send(parkData);
   }).catch(error => {
-    console.error('an error occured:', error);
+    res.status(500).send('failed to get parks data');
+    console.log(error.message);
   });
 }
 // ========= Helper Functions =========
