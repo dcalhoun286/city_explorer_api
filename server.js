@@ -31,6 +31,7 @@ app.get('/location', getLocation);
 
 function getLocation(req, res) {
   const cityUserEntered = req.query.city;
+  console.log('city user entered', cityUserEntered);
   const key = process.env.GEOCODE_API_KEY;
 
   // checking to see if the city that the user entered is already in the database
@@ -38,7 +39,7 @@ function getLocation(req, res) {
   const sqlArray = [cityUserEntered];
   client.query(sqlQuery, sqlArray).then(result => {
 
-    console.log(result.rows);
+    // console.log(result.rows);
 
     if (result.rows.length !== 0) {
       response.send(result.rows[0]);
@@ -52,19 +53,19 @@ function getLocation(req, res) {
 
       superagent.get(url).then(result => {
         const cityObject = result.body[0];
-        console.log(cityObject);
+        // console.log(cityObject);
         const newCity = new Location(cityUserEntered, cityObject);
 
         // enter new city that user entered into database
         const sqlQuery = 'INSERT INTO city (search_query, formatted_query, latitude, longitude) VALUES($1, $2, $3, $4)';
         const sqlArray = [newCity.search_query, newCity.formatted_query, newCity.latitude, newCity.longitude];
-        console.log('sql array', sqlArray);
+        // console.log('sql array', sqlArray);
         client.query(sqlQuery, sqlArray);
         res.send(newCity);
       })
         .catch(error => {
           res.status(500).send('failed to retrieve location.');
-          console.log(error.message);
+          console.log('failed to retrieve location', error.message);
         });
 
     }
@@ -88,7 +89,7 @@ function getWeather(req, res) {
     res.status(200).send(arr);
   }).catch(error => {
     res.status(500).send('failed to get weather data');
-    console.error('an error occured:', error);
+    console.error('failed to get weather data', error);
   });
 }
 
@@ -106,9 +107,34 @@ function getParks(req, res) {
     res.send(parkData);
   }).catch(error => {
     res.status(500).send('failed to get parks data');
-    console.log(error.message);
+    console.log('failed to get parks data', error.message);
   });
 }
+
+// movies
+
+app.get('/movies', getMovies);
+
+function getMovies(req, res) {
+
+  const city = req.query.search_query;
+  const movieKey = process.env.MOVIE_API_KEY;
+
+  // https://developers.themoviedb.org/3/search/search-movies
+
+  const movieUrl = `https://api.themoviedb.org/3/search/movie?api_key=${movieKey}&language=en-US&query=${city}&total_results=10`;
+
+  superagent.get(movieUrl).then(result => {
+
+    const moviesArray = result.body.results.map(movieObject => new Movies(movieObject));
+    res.send(moviesArray);
+  })
+    .catch(error => {
+      res.status(500).send('failed to retrieve movies.');
+      console.log(error);
+    });
+}
+
 // ========= Helper Functions =========
 
 function Weather(weatherObject) {
@@ -120,7 +146,7 @@ function Weather(weatherObject) {
 
 function Location(city, object) {
   this.search_query = city;
-  console.log(city);
+  // console.log(city);
   // this.formatted_query = object.formatted_query;
   this.formatted_query = object.display_name;
   this.latitude = object.lat;
@@ -130,12 +156,19 @@ function Location(city, object) {
 function Parks(object) {
   this.name = object.fullName;
   this.address = `${object.addresses[0].line1} ${object.addresses[0].city} ${object.addresses[0].stateCode}, ${object.addresses[0].postalCode}`;
-  this.fee = object.entranceFees[0].cost;
+  this.fee = object.entranceFees[0].cost? object.entranceFees[0] : 'free';
   this.description = object.description;
   this.park_url = object.url;
+}
 
-  // console.log(`fees for ${parksObject.fullName}`, parksObject.entranceFees);
-  // console.log(`addresses for ${parksObject.fullName}`, parksObject.addresses);
+function Movies(object) {
+  this.title = object.title;
+  this.overview = object.overview;
+  this.average_votes = object.vote_average;
+  this.total_votes = object.vote_count;
+  this.image_url = `https://image.tmdb.org/t/p/w500${object.poster_path}`;
+  this.popularity = object.popularity;
+  this.released_on = object.release_date;
 }
 
 // ========= Start the server ============
@@ -146,5 +179,5 @@ client.connect()
     app.listen(PORT, () => console.log(`we are up on PORT ${PORT}`));
   })
   .catch(error => {
-    console.log(error.message);
+    console.log('server failed to load', error.message);
   });
