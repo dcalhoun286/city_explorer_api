@@ -1,7 +1,7 @@
 # city_explorer_api
 
 **Author**: Dar-Ci Calhoun
-**Version**: 4.0.0
+**Version**: 5.0.0
 
 ## Overview
 
@@ -38,6 +38,7 @@ In order to run this app on your machine, complete the following steps:
 01-24-2021 4:43pm - Application now retrieves data using geocode, parks, and weather API keys
 01-30-2021 8:15pm - Application now has proper error handling
 01-30-2021 11:25pm - Database setup complete, server now begins after database connection is established
+01-31-2021 9:30pm - Application now retrieves data using TheMovieDB API key
 
 ## Time Estimates
 
@@ -100,6 +101,15 @@ In order to run this app on your machine, complete the following steps:
   - resume: 01-31-2021
 - **End time**:
 - **Actual time needed to complete**:
+
+**Number and name of feature**: 9. Movies
+
+- **Estimate of time needed to complete**: 90 minutes
+- **Start time**: 01-31-2021 2:15pm
+  - stop: 01-31-2021 4:20pm
+  - resume: 01-31-2021 8:00pm
+- **End time**: 01-31-2021 9:30pm
+- **Actual time needed to complete**: 215 minutes
 
 ## Credits and Collaborations
 
